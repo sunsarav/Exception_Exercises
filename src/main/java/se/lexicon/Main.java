@@ -1,21 +1,22 @@
 package se.lexicon;
 
+import java.util.Enumeration;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     static void main() {
-        //Ex1 - Write a program that asks the user to input two integers and then divides the first number by the second.
-        //Implement exception handling to manage the scenario where the user inputs zero as the second number.
-        //Use try-catch to handle ArithmeticException.
-
-        System.out.println("---Exercise 1: Basic Exception Handling---");
 
         performDivision();
+        checkRange();
+        withdraw();
 
 
     }
+
     public static void performDivision() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("---Exercise 1: Basic Exception Handling---");
 
         try {
             System.out.println("Enter the first Number: ");
@@ -30,8 +31,33 @@ public class Main {
             System.out.println("Error: Any number cannot be divided by 0");
 
         }
+    }
 
+    public static void checkRange() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n---Exercise 2: Multiple Exception Types---");
+
+        try {
+            System.out.println("Enter an Integer (1 - 100): ");
+            int num = scanner.nextInt();
+            if (num < 1 || num > 100) {
+                throw new RuntimeException("Number out of Range");
+            }
+            System.out.println("Valid Number: " + num);
+
+        } catch (InputMismatchException e) {
+            scanner.nextLine(); // Clear the invalid input
+            System.out.println("❌ This is not a valid whole number");
+        } catch (RuntimeException e) {
+            System.out.println("❌" + e.getMessage());
+        }
 
     }
 
+    public static void withdraw() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n---Exercise 3: Custom Exception---");
+
+
+    }
 }
