@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,9 +17,21 @@ public class Main {
         //checkRange();
         //withdraw();
         //readFileAndParseInts();
-        performDivision1();
+        //performDivision1();
+        //validateEmail();
+        // 1. Testing addName
+        addName("Shanmu");
+        addName("Ragavi");
+        addName("Shanmu");
+        System.out.println("--------------------------------");
+        // 2. Testing findName
+        findName("Ragavi");
+        findName("Muthana");
+
+
 
     }
+
     // Ex 1
     public static void performDivision() {
         Scanner scanner = new Scanner(System.in);
@@ -34,10 +47,11 @@ public class Main {
             int result = number1 / number2;
             System.out.println("Result is : " + result);
         } catch (ArithmeticException e) {
-            System.out.println("Error: Any number cannot be divided by 0");
+            System.out.println("❌ Error: Any number cannot be divided by 0");
 
         }
     }
+
     // Ex 2
     public static void checkRange() {
         Scanner scanner = new Scanner(System.in);
@@ -55,9 +69,10 @@ public class Main {
             scanner.nextLine(); // Clear the invalid input
             System.out.println("❌ This is not a valid whole number");
         } catch (RuntimeException e) {
-            System.out.println("❌" + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
+
     // Ex 3
     public static void withdraw() {
         System.out.println("\n---Exercise 3: Custom Exception---");
@@ -68,30 +83,32 @@ public class Main {
             System.out.println("❌ Error: " + e.getMessage());
         }
     }
+
     // Ex 4
     public static void readFileAndParseInts() {
-    System.out.println("\n---Exercise 4: Nested try-catch Blocks---");
-    try {
-        BufferedReader reader = Files.newBufferedReader(Paths.get("numbers.txt"));
+        System.out.println("\n---Exercise 4: Nested try-catch Blocks---");
+        try {
+            BufferedReader reader = Files.newBufferedReader(Paths.get("numbers.txt"));
 
-        String line;
+            String line;
 
-        while ((line = reader.readLine()) != null) {
-            try {
-                int number = Integer.parseInt(line);
-                System.out.println("Parsed Number: " + number);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid Number: " + line);
+            while ((line = reader.readLine()) != null) {
+                try {
+                    int number = Integer.parseInt(line);
+                    System.out.println("Parsed Number: " + number);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Number: " + line);
+                }
             }
+        } catch (IOException e) {
+            System.out.println("❌ IO Error Occurred");
         }
-    } catch (IOException e) {
-        System.out.println("IO Error Occurred");
     }
-    }
+
     // Ex 5
     public static void performDivision1() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("---Exercise 5: finally Block---");
+        System.out.println("\n---Exercise 5: finally Block---");
 
         try {
             System.out.println("Enter the first Number: ");
@@ -103,16 +120,68 @@ public class Main {
             int result = number1 / number2;
             System.out.println("Result is : " + result);
         } catch (ArithmeticException e) {
-            System.out.println("Error: Any number cannot be divided by 0");
+            System.out.println("❌ Error: Any number cannot be divided by 0");
         } finally {
             System.out.println("\nFinally! executes whether an exception occurs or not.");
         }
     }
+
     // Ex 6
+    public static void validateEmail() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n---Exercise 6: Throwing Exceptions---");
+        while (true) {
+            try {
+                System.out.println("Enter your valid Email address: ");
+                String email = scanner.nextLine();
 
+                if (!email.contains("@") || !email.contains(".")) {
+                    throw new IllegalArgumentException("❌ Invalid Email: missing @ or a '.'");
+                }
+                System.out.println("Email is Valid!" + email);
+                break;
 
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Please try again.");
+            }
+        }
+    }
 
+    // Ex 7
+    static ArrayList<String> names = new ArrayList<>();
 
+    public static void addName(String name) {
+        System.out.println("\n---Exercise 7: Custom Exceptions for List Operations---");
+        try {
+            if (names.contains(name)) {
+                throw new RuntimeException("❌ Error: " + name + " is already in the list.");
+            }
+            names.add(name);
+            System.out.println("Added: " + name);
 
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void findName(String name) {
+        try {
+            if (!names.contains(name)) {
+                throw new RuntimeException("❌ Error: " + name + " could not be found.");
+            }
+            System.out.println("Found: " + name + " is in the list.");
+
+        } catch (RuntimeException e1) {
+            System.out.println(e1.getMessage());
+
+        }
+    }
+    // Ex 8
 
 }
+
+
+
+
+
