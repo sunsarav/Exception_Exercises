@@ -1,12 +1,11 @@
 package se.lexicon;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -20,14 +19,14 @@ public class Main {
         //performDivision1();
         //validateEmail();
         // 1. Testing addName
-        addName("Shanmu");
+        /* addName("Shanmu");
         addName("Ragavi");
         addName("Shanmu");
         System.out.println("--------------------------------");
         // 2. Testing findName
         findName("Ragavi");
-        findName("Muthana");
-
+        findName("Muthana"); */
+        fileWriteApp();
 
 
     }
@@ -178,7 +177,18 @@ public class Main {
         }
     }
     // Ex 8
+    public static void fileWriteApp() {
+        String content = "Hello, this is a test string written using try_with_resources!";
+        String filename = "output.txt";
 
+        // FileWriter implements AutoCloseable, so it will close automatically
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write(content);
+            System.out.println("File written successfully");
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
 }
 
 
